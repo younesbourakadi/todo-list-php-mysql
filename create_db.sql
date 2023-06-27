@@ -14,7 +14,7 @@ CREATE TABLE task (
   id_task INT PRIMARY KEY AUTO_INCREMENT,
   description_task VARCHAR(255),
   date_creation DATETIME,
-  client_id INT,
+  client_id INT
   -- FOREIGN KEY (client_id) REFERENCES client(id)
 );
 
