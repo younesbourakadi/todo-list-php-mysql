@@ -6,7 +6,7 @@ CREATE TABLE client (
   id_client INT PRIMARY KEY AUTO_INCREMENT,
   lastname_client VARCHAR(255),
   firstname_client VARCHAR(255),
-  email_client VARCHAR(255)
+  email_client VARCHAR(255),
   password_client VARCHAR(255)
 );
 
