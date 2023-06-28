@@ -8,23 +8,19 @@
     <title>Document</title>
 </head>
   <body>
-
-    
-    
     <div class="container">
+      <form action="" method="get">
+        <label for="">Votre message</label>
+        <input type="text" name="note"></input>
+<button class="btn-li">GO</button>
 
-      <div class="div-flex">
-      <input type"note" name="note"></input>
-        <button class="btn-form"></button>
+      </form>
         </div>
-      <div class="div-flex">
       <ul>
-        <li>this is a li</li><button class="btn-li"></button>
+        <li>this is a li</li><button class="btn-li">delete</button>
       </ul>
-      </div>
 
 
-    </div>
 
 
 
