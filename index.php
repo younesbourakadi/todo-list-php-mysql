@@ -1,3 +1,4 @@
+<?= require "./includes/_database.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,51 +9,32 @@
   <link href="style.css" rel="stylesheet">
   <title>TaskViktor</title>
 </head>
-  <body>
 
-<?php 
-try {
-$dbCo = new PDO(
-'mysql:host=localhost;dbname=taskvictor;charset=utf8',
-'root',
-'root'
-);
-$dbCo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,
-PDO::FETCH_ASSOC);
-}
-catch (Exception $e) {
-die('Unable to connect to the database.
-'.$e->getMessage());
-}
-
-$query = $dbCo->prepare("SELECT  description_task, date_creation, client_id FROM task");
-$query->execute();
-$result = $query->fetchAll();
-var_dump($result);
-?>
-
+<body>
 
 
   <div class="container">
     <h1>TaskViktor</h1>
     <form class="add-todo">
       <ul class="todo-list">
-          <?php
+        <?php
 
-          foreach($result as $task){
-          echo '<li class=\"todo-item\">'.$task['description_task'].
-          '<input type=\"checkbox\" id=\"task1\">';
-'</li>';
-}
-?>
+        $query = $dbCo->prepare("SELECT  description_task, date_creation, client_id FROM task WHERE status_task = 0 ORDER BY date_creation ASC");
+        $query->execute();
+        $result = $query->fetchAll();
+        //var_dump($result);
+
+        foreach ($result as $task) {
+          echo '<li class="todo-item"><input type="checkbox" id="task"><label for=\"task\">'
+            . $task['description_task']
+            . '</label></li>';
+        }
+        ?>
       </ul>
       <input type="text" id="newTaskInput" placeholder="Add a new task">
       <button type="submit">Add</button>
     </form>
   </div>
-
-
-
 
 
 
