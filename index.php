@@ -1,4 +1,4 @@
-<?php require "./includes/_database.php"; ?>
+<?php require "includes/_database.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,20 +15,28 @@
     <h1>TaskViktor</h1>
 
     <form class="add-todo" action="add.php" method="post">
-      <ul class="todo-list">
-        <?php
-        $query = $dbCo->prepare("SELECT description_task, date_creation, client_id FROM task WHERE status_task = 0 ORDER BY date_creation ASC");
-        $query->execute();
-        $result = $query->fetchAll();
-
-        foreach ($result as $task) {
-          echo '<li class="todo-item"><input type="checkbox" id="task"><label for="task">' . $task['description_task'] . '</label></li>';
-        }
-        ?>
-      </ul>
       <input type="text" id="newTaskInput" name="name" placeholder="Add a new task">
-      <button type="submit">Add</button>
+      <button type="submit" class="add-btn" name="submit">Add</button>
     </form>
+
+    <ul class="todo-list">
+      <?php
+      $query = $dbCo->prepare("SELECT id_task, description_task, date_creation, client_id FROM task WHERE status_task = 0 ORDER BY date_creation ASC");
+      $query->execute();
+      $result = $query->fetchAll();
+
+      foreach ($result as $task) {
+        echo '<li class="todo-item">
+                <span>' . $task['description_task'] . '</span>
+                <form class="complete-form" action="update.php" method="post" style="display: inline;">
+                  <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
+                  <button type="submit" class="complete-btn">Complete</button>
+                </form>
+              </li>';
+      }
+      ?>
+    </ul>
+
   </div>
 </body>
 

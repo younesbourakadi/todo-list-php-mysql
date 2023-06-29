@@ -50,7 +50,7 @@
       border: 1px solid #ddd;
     }
 
-    .add-todo button {
+    .add-btn {
       padding: 8px 15px;
       margin-left: 10px;
       background-color: #4caf50;
@@ -59,3 +59,13 @@
       border-radius: 3px;
       cursor: pointer;
     }
+
+    .complete-btn {
+  padding: 8px 15px;
+  margin-left: 10px;
+  background-color: #FF0000;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
