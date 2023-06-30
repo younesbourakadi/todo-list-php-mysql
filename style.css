@@ -69,3 +69,7 @@
   border-radius: 3px;
   cursor: pointer;
 }
+
+    .complete-form {
+      display: inline;
+    }
