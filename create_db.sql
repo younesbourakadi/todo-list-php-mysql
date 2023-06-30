@@ -19,3 +19,8 @@ CREATE TABLE task (
   -- FOREIGN KEY (client_id) REFERENCES client(id)
 );
 
+CREATE TABLE notification (
+  id_notification INT PRIMARY KEY AUTO_INCREMENT,
+  message VARCHAR(255),
+  created_at DATETIME
+);

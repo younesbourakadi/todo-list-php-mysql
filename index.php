@@ -16,12 +16,18 @@ require './includes/_database.php';
 <body>
   <div class="container">
     <h1>TaskViktor</h1>
-   <?php
-    if (isset($_GET['message'])) {
-      $notification = $_GET['message'];
+
+    <?php
+    $notificationQuery = $dbCo->query("SELECT message FROM notification ORDER BY created_at ASC LIMIT 1");
+    $notificationResult = $notificationQuery->fetch(PDO::FETCH_ASSOC);
+    $notification = isset($notificationResult['message']) ? $notificationResult['message'] : "";
+
+    if (!empty($notification)) {
       echo '<div class="notification">' . $notification . '</div>';
     }
     ?>
+
+
     <form class="add-todo" action="add.php" method="post">
       <input type="text" id="newTaskInput" name="name" placeholder="Add a new task">
       <button type="submit" class="add-btn" name="submit">Add</button>
@@ -42,6 +48,7 @@ require './includes/_database.php';
                 </form>
               </li>';
       }
+      // remplacer tout le forme par un lien qui revoie a une page avec GET
       ?>
     </ul>
 
@@ -49,4 +56,3 @@ require './includes/_database.php';
 </body>
 
 </html>
-

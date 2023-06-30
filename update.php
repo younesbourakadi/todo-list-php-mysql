@@ -16,7 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['task_id'])) {
   $message = "Invalid request. Please try again.";
 }
 
-header('Location: index.php?message=' . urlencode($message));
+$insertNotificationQuery = $dbCo->prepare("INSERT INTO notification (message, created_at) VALUES (:message, NOW())");
+$insertNotificationQuery->execute(['message' => $message]);
+
+header('Location: index.php');
 exit();
 ?>
 
