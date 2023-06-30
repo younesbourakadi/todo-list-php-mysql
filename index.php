@@ -18,6 +18,7 @@ require './includes/_database.php';
     <h1>TaskViktor</h1>
 
     <?php
+    // Récupération de la dernière notification
     $notificationQuery = $dbCo->prepare("SELECT message FROM notification ORDER BY created_at ASC LIMIT 1");
     $notificationQuery->execute();
     $notificationResult = $notificationQuery->fetch(PDO::FETCH_ASSOC);
@@ -43,8 +44,13 @@ require './includes/_database.php';
 
       foreach ($result as $task) {
         echo '<li class="todo-item">
-          <span>' . $task['description_task'] . '</span>
+          <span class="task-description">' . $task['description_task'] . '</span>
           <a href="update.php?task_id=' . $task['id_task'] . '" class="complete-btn">Complete</a>
+          <form class="update-form" action="update_text.php" method="post">
+            <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
+            <input type="text" name="new_description" placeholder="New description">
+            <button type="submit" class="update-btn">Update</button>
+          </form>
         </li>';
       }
       ?>
@@ -54,3 +60,4 @@ require './includes/_database.php';
 </body>
 
 </html>
+
