@@ -1,4 +1,7 @@
-<?php require "includes/_database.php"; ?>
+<?php
+require './includes/_database.php';
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +16,12 @@
 <body>
   <div class="container">
     <h1>TaskViktor</h1>
-
+   <?php
+    if (isset($_GET['message'])) {
+      $notification = $_GET['message'];
+      echo '<div class="notification">' . $notification . '</div>';
+    }
+    ?>
     <form class="add-todo" action="add.php" method="post">
       <input type="text" id="newTaskInput" name="name" placeholder="Add a new task">
       <button type="submit" class="add-btn" name="submit">Add</button>
