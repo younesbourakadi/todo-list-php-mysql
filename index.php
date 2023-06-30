@@ -18,13 +18,15 @@ require './includes/_database.php';
     <h1>TaskViktor</h1>
 
     <?php
-    $notificationQuery = $dbCo->query("SELECT message FROM notification ORDER BY created_at ASC LIMIT 1");
+    $notificationQuery = $dbCo->prepare("SELECT message FROM notification ORDER BY created_at ASC LIMIT 1");
+    $notificationQuery->execute();
     $notificationResult = $notificationQuery->fetch(PDO::FETCH_ASSOC);
     $notification = isset($notificationResult['message']) ? $notificationResult['message'] : "";
 
     if (!empty($notification)) {
       echo '<div class="notification">' . $notification . '</div>';
     }
+
     ?>
 
 
@@ -41,14 +43,10 @@ require './includes/_database.php';
 
       foreach ($result as $task) {
         echo '<li class="todo-item">
-                <span>' . $task['description_task'] . '</span>
-                <form class="complete-form" action="update.php" method="post" style="display: inline;">
-                  <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
-                  <button type="submit" class="complete-btn">Complete</button>
-                </form>
-              </li>';
+          <span>' . $task['description_task'] . '</span>
+          <a href="update.php?task_id=' . $task['id_task'] . '" class="complete-btn">Complete</a>
+        </li>';
       }
-      // remplacer tout le forme par un lien qui revoie a une page avec GET
       ?>
     </ul>
 
