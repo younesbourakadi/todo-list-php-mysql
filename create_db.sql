@@ -15,7 +15,8 @@ CREATE TABLE task (
   description_task VARCHAR(255),
   date_creation DATETIME,
   status_task TINYINT(1) DEFAULT 0,
-  client_id INT
+  client_id INT,
+  priority INT
   -- FOREIGN KEY (client_id) REFERENCES client(id)
 );
 
