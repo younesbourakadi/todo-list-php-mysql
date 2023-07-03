@@ -1,21 +1,25 @@
 <?php
-require 'includes/_database.php';
+require './includes/_database.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
-  $taskName = strip_tags($_POST['name']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $description = isset($_POST['description']) ? $_POST['description'] : null;
+  $clientId = 1;
 
-  // Ajouter la nouvelle tâche à la base de données
-  $insertQuery = $dbCo->prepare("INSERT INTO task (description_task, date_creation, status_task, client_id) VALUES (:name, NOW(), 0, 1)");
-  $isOk = $insertQuery->execute(['name' => $taskName]);
+  if ($description) {
+    $query = $dbCo->prepare("SELECT MAX(task_order) AS max_order FROM task");
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $maxOrder = $result['max_order'];
 
-  if ($isOk) {
-    // La tâche a été ajoutée avec succès, donc supprimer la notification
-    $deleteQuery = $dbCo->prepare("DELETE FROM notification");
-    $deleteQuery->execute();
+    $newTaskOrder = $maxOrder + 1;
+
+    $insertQuery = $dbCo->prepare("INSERT INTO task (description_task, date_creation, task_order, client_id) VALUES (:description, NOW(), :task_order, :client_id)");
+    $insertQuery->bindParam(':description', $description);
+    $insertQuery->bindParam(':task_order', $newTaskOrder);
+    $insertQuery->bindParam(':client_id', $clientId);
+    $insertQuery->execute();
   }
 }
 
 header('Location: index.php');
 exit();
-?>
-

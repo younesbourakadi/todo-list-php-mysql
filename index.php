@@ -15,7 +15,6 @@ require './includes/_database.php';
     <h1>TaskViktor</h1>
 
     <?php
-    // Récupération de la dernière notification
     $notificationQuery = $dbCo->prepare("SELECT message FROM notification ORDER BY created_at ASC LIMIT 1");
     $notificationQuery->execute();
     $notificationResult = $notificationQuery->fetch(PDO::FETCH_ASSOC);
@@ -26,30 +25,41 @@ require './includes/_database.php';
     }
     ?>
     <form class="add-todo" action="add.php" method="post">
-      <input type="text" id="newTaskInput" name="name" placeholder="Add a new task">
+      <input type="text" id="newTaskInput" name="description" placeholder="Add a new task">
       <button type="submit" class="add-btn" name="submit">Add</button>
     </form>
+
     <ul class="todo-list">
       <?php
-      $query = $dbCo->prepare("SELECT id_task, description_task, date_creation, client_id FROM task WHERE status_task = 0 ORDER BY date_creation ASC");
+      $query = $dbCo->prepare("SELECT id_task, description_task, date_creation, task_order, client_id FROM task WHERE status_task = 0 ORDER BY task_order ASC, date_creation ASC");
       $query->execute();
       $result = $query->fetchAll();
 
       foreach ($result as $task) {
-        echo'<li class="todo-item">
+        echo '<li class="todo-item">
           <span class="task-description">' . $task['description_task'] . '</span>
           <a href="update.php?task_id=' . $task['id_task'] . '" class="complete-btn">Complete</a>
           <form class="update-form" action="update_text.php" method="post">
             <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
-            <button type="submit" class="update-btn" id="test">Update</button>
-            <input type="text" name="new_description" placeholder="New description" id="test1">
+            <button type="submit" class="update-btn">Update</button>
+            <input type="text" name="new_description" placeholder="New description">
+          </form>
+          <form class="move-form" action="move.php" method="post">
+            <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
+            <input type="hidden" name="action" value="up">
+            <button type="submit" class="move-btn">&#8593;</button>
+          </form>
+          <form class="move-form" action="move.php" method="post">
+            <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
+            <input type="hidden" name="action" value="down">
+            <button type="submit" class="move-btn">&#8595;</button>
           </form>
         </li>';
       }
       ?>
     </ul>
   </div>
-<script src="./script.js"></script>
+  <script src="./script.js"></script>
 </body>
-</html>
 
+</html>

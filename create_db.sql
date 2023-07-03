@@ -16,8 +16,7 @@ CREATE TABLE task (
   date_creation DATETIME,
   status_task TINYINT(1) DEFAULT 0,
   client_id INT,
-  priority INT
-  -- FOREIGN KEY (client_id) REFERENCES client(id)
+  FOREIGN KEY (client_id) REFERENCES client(id)
 );
 
 CREATE TABLE notification (
@@ -25,3 +24,5 @@ CREATE TABLE notification (
   message VARCHAR(255),
   created_at DATETIME
 );
+
+ALTER TABLE task ADD COLUMN task_order INT DEFAULT NULL;
