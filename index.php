@@ -2,7 +2,6 @@
 require './includes/_database.php';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +29,6 @@ require './includes/_database.php';
 
     ?>
 
-
     <form class="add-todo" action="add.php" method="post">
       <input type="text" id="newTaskInput" name="name" placeholder="Add a new task">
       <button type="submit" class="add-btn" name="submit">Add</button>
@@ -55,9 +53,8 @@ require './includes/_database.php';
       }
       ?>
     </ul>
-
   </div>
+<script src="./script.js"></script>
 </body>
-
 </html>
 
