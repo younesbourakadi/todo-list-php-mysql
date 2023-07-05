@@ -3,7 +3,7 @@ require './includes/_database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $taskId = isset($_POST['task_id']) ? $_POST['task_id'] : null;
-  $action = isset($_POST['action']) ? $_POST['action'] : null;
+  $action = isset($_POST['move']) ? $_POST['move'] : null;
 
   if ($taskId && $action) {
     $query = $dbCo->prepare("SELECT MAX(task_order) AS max_order FROM task");

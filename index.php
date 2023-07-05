@@ -38,7 +38,12 @@ require './includes/_database.php';
       foreach ($result as $task) {
         echo '<li class="todo-item">
           <span class="task-description">' . $task['description_task'] . '</span>
+
           <a href="update.php?task_id=' . $task['id_task'] . '" class="complete-btn">Complete</a>
+
+          <a href="delete.php?task_id=' . $task['id_task'] . '" class="delete-btn">DELETE</a>
+          
+
           <form class="update-form" action="update_text.php" method="post">
             <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
             <button type="submit" class="update-btn">Update</button>
@@ -46,16 +51,23 @@ require './includes/_database.php';
           </form>
           <form class="move-form" action="move.php" method="post">
             <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
-            <input type="hidden" name="action" value="up">
+            <input type="hidden" name="move" value="up">
             <button type="submit" class="move-btn">&#8593;</button>
           </form>
           <form class="move-form" action="move.php" method="post">
             <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
-            <input type="hidden" name="action" value="down">
+            <input type="hidden" name="move" value="down">
             <button type="submit" class="move-btn">&#8595;</button>
           </form>
+
         </li>';
       }
+
+
+
+
+
+
       ?>
     </ul>
   </div>
