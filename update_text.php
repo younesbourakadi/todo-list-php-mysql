@@ -24,7 +24,6 @@ header('Location: index.php');
 exit();
 ?>
 
-Bonjour à tous ￼ 
 
 
 
