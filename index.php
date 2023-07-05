@@ -29,10 +29,13 @@ $_SESSION['token'] = md5(uniqid(mt_rand(), true));
       echo '<div class="notification">' . $notification . '</div>';
     }
     ?>
+
     <form class="add-todo" action="add.php" method="post">
+      <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
       <input type="text" id="newTaskInput" name="description" placeholder="Add a new task">
       <button type="submit" class="add-btn" name="submit">Add</button>
     </form>
+
 
     <ul class="todo-list">
       <?php
