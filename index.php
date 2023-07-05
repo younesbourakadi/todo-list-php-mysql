@@ -1,5 +1,9 @@
 <?php
 require './includes/_database.php';
+
+session_start();
+$_SESSION['token'] = md5(uniqid(mt_rand(), true));
+
 ?>
 <html lang="en">
 
@@ -15,6 +19,7 @@ require './includes/_database.php';
     <h1>TaskViktor</h1>
 
     <?php
+
     $notificationQuery = $dbCo->prepare("SELECT message FROM notification ORDER BY created_at ASC LIMIT 1");
     $notificationQuery->execute();
     $notificationResult = $notificationQuery->fetch(PDO::FETCH_ASSOC);
@@ -41,8 +46,8 @@ require './includes/_database.php';
 
           <a href="update.php?task_id=' . $task['id_task'] . '" class="complete-btn">Complete</a>
 
-          <a href="delete.php?task_id=' . $task['id_task'] . '" class="delete-btn">DELETE</a>
-          
+          <a href="delete.php?task_id=' . $task['id_task'] . "&token=" . $_SESSION['token'] . '" class="delete-btn">DELETE</a>
+      
 
           <form class="update-form" action="update_text.php" method="post">
             <input type="hidden" name="task_id" value="' . $task['id_task'] . '">
